@@ -46,7 +46,7 @@ export default function Chart() {
           ]}
           yAxis={[
             {
-              label: 'Sales ($)',
+              label: 'Temperature (in C)',
               labelStyle: {
                 ...theme.typography.body1,
                 fill: theme.palette.text.primary,
