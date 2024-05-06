@@ -9,8 +9,11 @@
   "author": "Haresh M",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "johnny-five": "^2.1.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5"
   }
 }
