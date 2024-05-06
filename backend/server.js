@@ -2,6 +2,15 @@ const express = require("express")
 const app = express()
 const five = require("johnny-five");
 const PORT = 3500
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions')
+const client = require('./config/DBConnect')
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
 
 let response;
 
