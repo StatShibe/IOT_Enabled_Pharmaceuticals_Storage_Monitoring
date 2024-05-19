@@ -18,32 +18,11 @@ app.use(morgan('tiny'));
 
 db.connect().then(()=>{
 	console.log("Postgres is connected");
+});
+
+app.get('/',(req,res)=>{
+	res.send("IOT PSMS");
 })
-
-// var board = new five.Board();
-// board.on("ready", async function() {
-// 	  multi = await new five.Multi({
-// 	  controller: "DHT11_I2C_NANO_BACKPACK",
-// 	  port: "COM4",
-// 	})
-// 	console.log("Connected with board")
-// 	multi.on("change", function() {
-// 		console.log("Thermometer");
-// 		console.log("  celsius           : ", this.thermometer.celsius);
-// 		console.log("  fahrenheit        : ", this.thermometer.fahrenheit);
-// 		console.log("  kelvin            : ", this.thermometer.kelvin);
-// 		console.log("--------------------------------------");
-	
-
-// 		console.log("Hygrometer");
-// 		console.log("  relative humidity : ", this.hygrometer.relativeHumidity);
-// 		console.log("--------------------------------------");
-// 		response = {
-// 		  "temperature" : this.thermometer.celsius,
-// 		  "humidity" : this.hygrometer.relativeHumidity
-// 		}
-// 	  });
-// });
 
 app.get("/getSensorData", async(req, res) => {
 	res.send(response)
@@ -70,7 +49,11 @@ app.post('/',async(req,res)=>{
 		await db.query("UPDATE CURRENT_DATA SET TEMP_IN_C = $1, TEMP_IN_F = $2, HUMIDITY = $3",[TemperatureInC,TemperatureInF,Humidity]);
 		console.log("Inserted without Light");
 	}
-	res.status(200).send("POST Request Recieved");
+	if(TemperatureInC>=38){
+		res.status(300).send("Temperature is HIGH");
+	}else{
+		res.status(200).send("POST Request Recieved");
+	}
 })
 
 app.get('/currentData',async(req,res)=>{
