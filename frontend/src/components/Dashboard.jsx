@@ -189,7 +189,7 @@ export default function Dashboard() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
-                  <Link color="primary" href="#" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
+                  <Link color="primary" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
                       See more medicines
                   </Link>
                 </Paper>
