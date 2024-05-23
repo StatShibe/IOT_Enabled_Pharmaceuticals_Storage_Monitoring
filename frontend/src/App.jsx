@@ -1,18 +1,20 @@
 import { useState } from 'react'
+import { BrowserRouter, Route,Routes } from "react-router-dom";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Dashboard from './components/Dashboard'
+import MedicinesPage from './pages/Medicines';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <Dashboard/>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/medicines" element={<MedicinesPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

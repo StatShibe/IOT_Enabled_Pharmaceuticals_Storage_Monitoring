@@ -12,13 +12,13 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{navigate('/');}}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{navigate('/medicines')}}>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>

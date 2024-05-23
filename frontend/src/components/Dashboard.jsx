@@ -21,19 +21,8 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -54,6 +43,11 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
+
+function preventDefault(event) {
+  event.preventDefault();
+}
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -85,6 +79,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -193,10 +189,12 @@ export default function Dashboard() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
+                  <Link color="primary" href="#" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
+                      See more medicines
+                  </Link>
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
