@@ -55,19 +55,19 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Orders() {
-  const [data,setData] = useState([]);
+export default function Orders({data, title}) {
+  // const [data,setData] = useState([]);
 
-  useEffect(()=>{
-      axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage').then((response)=>{
-        setData(response.data);
-        console.log(response.data);
-      });
-  },[])
+  // useEffect(()=>{
+  //     axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage').then((response)=>{
+  //       setData(response.data);
+  //       console.log(response.data);
+  //     });
+  // },[])
   
   return (
     <React.Fragment>
-      <Title>Medicine in Stock</Title>
+      <Title>{title}</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -90,8 +90,8 @@ export default function Orders() {
               <TableCell>{row?.med_name}</TableCell>
               <TableCell>{row?.manufacturer}</TableCell>
               <TableCell>{row?.storage_id}</TableCell>
-              <TableCell>{new Date(row?.mfd).toLocaleString()}</TableCell>
-              <TableCell>{new Date(row?.expd).toLocaleString()}</TableCell>
+              <TableCell>{new Date(row?.mfd).toLocaleDateString()}</TableCell>
+              <TableCell>{new Date(row?.expd).toLocaleDateString()}</TableCell>
               <TableCell>{row?.pref_min_temp} - {row?.pref_max_temp}</TableCell>
               <TableCell>{row?.pref_min_hum} - {row?.pref_max_hum}</TableCell>
               <TableCell>{row?.pref_min_light} - {row?.pref_max_light}</TableCell>

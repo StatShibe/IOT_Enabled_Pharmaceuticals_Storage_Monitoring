@@ -22,6 +22,8 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect} from 'react';
+import axios from 'axios';
 
 
 const drawerWidth = 240;
@@ -85,6 +87,27 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const [medsData,setMedsData] = useState([]);
+  const [expiredMedsData, setExpiredMedsData] = useState([]);
+
+  const fetchData = async() =>{
+    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/expired').then((response)=>{
+      setExpiredMedsData(response.data);
+      console.log(response.data);
+    });
+    
+    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/').then((response)=>{
+      setMedsData(response.data);
+      console.log(response.data);
+    });
+  }
+
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -188,7 +211,10 @@ export default function Dashboard() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <Orders data={expiredMedsData} title={"Expired Medicines"}/>
+                  
+                  <Orders data={medsData} title={"Medicines in Stock"}/>
+
                   <Link color="primary" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
                       See more medicines
                   </Link>
