@@ -88,7 +88,7 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  const [medsData,setMedsData] = useState([]);
+  const [riskMedsData,setRiskMedsData] = useState([]);
   const [expiredMedsData, setExpiredMedsData] = useState([]);
 
   const fetchData = async() =>{
@@ -97,8 +97,8 @@ export default function Dashboard() {
       console.log(response.data);
     });
     
-    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/').then((response)=>{
-      setMedsData(response.data);
+    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/risk').then((response)=>{
+      setRiskMedsData(response.data);
       console.log(response.data);
     });
   }
@@ -210,16 +210,22 @@ export default function Dashboard() {
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={expiredMedsData} title={"Expired Medicines"}/>
-                  
-                  <Orders data={medsData} title={"Medicines in Stock"}/>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <Orders data={expiredMedsData} title={"Expired Medicines"} />
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+
+                  <Orders data={riskMedsData} title={"Medicines at Risk"}/>
 
                   <Link color="primary" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
-                      See more medicines
+                      See all medicines
                   </Link>
                 </Paper>
               </Grid>
+
             </Grid>
           </Container>
         </Box>

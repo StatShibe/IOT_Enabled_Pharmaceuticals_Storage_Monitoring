@@ -10,60 +10,11 @@ import Title from './Title';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    'MDS12401',
-    'Razo-D',
-    'Dr.Reddy',
-    'A004',
-    '20',
-  ),
-  createData(
-    1,
-    'MDS12402',
-    'Paracetamol 500mg',
-    'GSK',
-    'A001',
-    '100',
-  ),
-  createData(2, 'MDS12403', 'DiCloWin plus', 'Wings Pharma', 'A003', '20'),
-  createData(
-    3,
-    'MDS12404',
-    'Cyclopam',
-    'Indoco',
-    'A005',
-    '30',
-  ),
-  createData(
-    4,
-    'MDS12405',
-    'Loparet',
-    'Retort Laboratories',
-    'A012',
-    '15',
-  ),
-];
-
 function preventDefault(event) {
   event.preventDefault();
 }
 
 export default function Orders({data, title}) {
-  // const [data,setData] = useState([]);
-
-  // useEffect(()=>{
-  //     axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage').then((response)=>{
-  //       setData(response.data);
-  //       console.log(response.data);
-  //     });
-  // },[])
   
   return (
     <React.Fragment>
@@ -85,7 +36,7 @@ export default function Orders({data, title}) {
         </TableHead>
         <TableBody>
           {data?.map((row) => (
-            <TableRow key={row?.med_id}>
+            <TableRow key={row?.med_id} style={{}}>
               <TableCell>{row?.med_id}</TableCell>
               <TableCell>{row?.med_name}</TableCell>
               <TableCell>{row?.manufacturer}</TableCell>
