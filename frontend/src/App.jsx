@@ -6,6 +6,7 @@ import './App.css'
 import Dashboard from './components/Dashboard'
 import MedicinesPage from './pages/Medicines';
 import HumidityDashboard from './pages/HumidityDashboard';
+import ReportsPage from './pages/Reports';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Dashboard/>} />
         <Route path="/medicines" element={<MedicinesPage />} />
         <Route path='/humidity' element={<HumidityDashboard/>}/>
+        <Route path="/reports" element={<ReportsPage />} />
       </Routes>
     </BrowserRouter>
   )

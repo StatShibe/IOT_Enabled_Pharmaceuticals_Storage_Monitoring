@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import Title from './Title';
 
-export default function Chart() {
+export default function HumidityChart() {
   const theme = useTheme();
 
   const [data,setData] = useState([]);
@@ -54,13 +54,13 @@ export default function Chart() {
               },
               tickLabelStyle: theme.typography.body2,
               min: 0,
-              max: 50,
+              max: 100,
               tickNumber: 3,
             },
           ]}
           series={[
             {
-              dataKey: 'temp',
+              dataKey: 'humidity',
               showMark: false,
               color: theme.palette.primary.light,
             },

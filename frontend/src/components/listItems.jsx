@@ -34,7 +34,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Humidity Sensor" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=> window.location.href = '/reports'}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>

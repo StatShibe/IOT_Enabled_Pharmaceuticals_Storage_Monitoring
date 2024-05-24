@@ -21,6 +21,9 @@ import Orders from '../components/Orders';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TableCell, Table, TableHead, TableRow, TableBody } from '@mui/material';
+import Title from '../components/Title';
+
 
 
 const drawerWidth = 240;
@@ -72,30 +75,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function MedicinesPage() {
+export default function ReportsPage() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   
-  const [medsData,setMedsData] = useState([]);
-  const [riskMedsData,setRiskMedsData] = useState([]);
-  const [expiredMedsData, setExpiredMedsData] = useState([]);
+  const [data,setData] = useState([]);
 
 
   const fetchData = async() =>{
-    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/').then((response)=>{
-      setMedsData(response.data);
-      console.log(response.data);
-    });
-    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/expired').then((response)=>{
-      setExpiredMedsData(response.data);
-      console.log(response.data);
-    });
-    
-    await axios.get(import.meta.env.VITE_SERVER_URL+'/meds-storage/risk').then((response)=>{
-      setRiskMedsData(response.data);
+    await axios.get(import.meta.env.VITE_SERVER_URL+'/history/all-desc').then((response)=>{
+      setData(response.data);
       console.log(response.data);
     });
   }
@@ -181,23 +173,43 @@ export default function MedicinesPage() {
               
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={expiredMedsData} title={"Expired Medicines"} />
+                  
+
+              <React.Fragment>
+                <Title>Report</Title>
+                <Table size="small">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>History ID</TableCell>
+                        <TableCell>Time </TableCell>
+                        <TableCell>Storage Id</TableCell>
+                        <TableCell>Temperature</TableCell>
+                        <TableCell>Humidity</TableCell>
+                        {/* <TableCell align="right">Quantity</TableCell> */}
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {data?.map((row) => (
+                        <TableRow key={row?.history_id} style={{}}>
+                        <TableCell>{row?.history_id}</TableCell>
+                        <TableCell>{new Date(row?.time).toLocaleString()}</TableCell>
+                        <TableCell>{row?.storage_id}</TableCell>
+                        <TableCell>{row?.temp}</TableCell>
+                        <TableCell>{row?.humidity}</TableCell>
+                        {/* <TableCell align="right">{`${row.amount}`}</TableCell> */}
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+
+                </React.Fragment>
+
+
+
                 </Paper>
               </Grid>
 
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={riskMedsData} title={"Medicines at Risk"}/>
-                </Paper>
-              </Grid>
 
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-
-                  <Orders data={medsData} title={"Medicine in Stock"} />
-
-                </Paper>
-              </Grid>
             </Grid>
           </Container>
         </Box>
