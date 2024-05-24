@@ -6,6 +6,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
+import MedicalInformation from '@mui/icons-material/MedicalInformation'
+import SensorsRounded from '@mui/icons-material/SensorsRounded'
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -22,15 +24,15 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton onClick={()=>{window.location.href= '/medicines';}}>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <MedicalInformation />
       </ListItemIcon>
       <ListItemText primary="Medicines" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{window.location.href='/humidity'}}>
       <ListItemIcon>
-        <PeopleIcon />
+        <SensorsRounded />
       </ListItemIcon>
-      <ListItemText primary="Warehouse" />
+      <ListItemText primary="Humidity Sensor" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

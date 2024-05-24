@@ -208,24 +208,6 @@ export default function HumidityDashboard() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={expiredMedsData} title={"Expired Medicines"} />
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-
-                  <Orders data={riskMedsData} title={"Medicines at Risk"}/>
-
-                  <Link color="primary" onClick={()=>{navigate("/medicines")}} sx={{ mt: 3 }}>
-                      See all medicines
-                  </Link>
-                </Paper>
-              </Grid>
-
             </Grid>
           </Container>
         </Box>
