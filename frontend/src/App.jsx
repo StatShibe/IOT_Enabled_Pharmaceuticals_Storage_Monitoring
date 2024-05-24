@@ -5,6 +5,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Dashboard from './components/Dashboard'
 import MedicinesPage from './pages/Medicines';
+import HumidityDashboard from './pages/HumidityDashboard';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard/>} />
         <Route path="/medicines" element={<MedicinesPage />} />
+        <Route path='/humidity' element={<HumidityDashboard/>}/>
       </Routes>
     </BrowserRouter>
   )
