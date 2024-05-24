@@ -5,11 +5,15 @@ const PORT = 3001
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
+const nodemailer = require('nodemailer');
+const cron = require('node-cron');
+
 
 const corsOptions = require('./config/corsOptions')
 const db = require('./config/DBConnect')
 const medStorageRoute = require('./routes/med_storage.route');
 const historyRoute = require('./routes/history.route');
+const sendEmail = require("./sendMail");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
@@ -50,6 +54,9 @@ app.post('/',async(req,res)=>{
 		console.log("Inserted without Light");
 	}
 	if(TemperatureInC>=38){
+		result = await db.query('SELECT * FROM MEDS_STORAGE WHERE pref_min_temp > $1 OR PREF_MAX_TEMP < $2 OR PREF_MIN_HUM > $3 OR PREF_MAX_HUM < $4',[TemperatureInC,TemperatureInC, Humidity,Humidity]);
+		sendEmail(result.rows, `Medicines at RISK - ${new Date().toLocaleString()}`);
+
 		res.status(300).send("Temperature is HIGH");
 	}else{
 		res.status(200).send("POST Request Recieved");
@@ -64,6 +71,13 @@ app.get('/currentData',async(req,res)=>{
 
 app.use('/meds-storage',medStorageRoute);
 app.use('/history',historyRoute);
+
+
+// Discharge scheduled to happen every day at 8:00 AM
+cron.schedule('00 08 * * *', async() => {
+	const result = await db.query('SELECT * FROM MEDS_STORAGE where expd <= $1',[new Date()]);
+    sendEmail(result.rows,`Expired Medicines - ${new Date().toLocaleDateString()}`);
+});
 
 
 
