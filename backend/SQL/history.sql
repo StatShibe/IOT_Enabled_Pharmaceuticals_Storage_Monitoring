@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS public.history
 (
-    history_id integer NOT NULL DEFAULT nextval('history_history_id_seq'::regclass),
+    history_id serial,
     storage_id integer NOT NULL,
     temp numeric(5,2) NOT NULL,
     humidity numeric(5,2) NOT NULL,
