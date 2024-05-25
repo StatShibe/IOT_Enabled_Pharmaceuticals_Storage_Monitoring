@@ -19,7 +19,7 @@ export default function Orders({data, title}) {
   return (
     <React.Fragment>
       <Title>{title}</Title>
-      <Table size="small">
+      <Table size="small" style={{}}>
         <TableHead>
           <TableRow>
             <TableCell>Medicine ID</TableCell>
